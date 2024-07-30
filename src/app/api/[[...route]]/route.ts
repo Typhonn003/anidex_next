@@ -8,6 +8,7 @@ import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { handle } from "hono/vercel";
 
+export const dynamic = "force-dynamic";
 export const runtime = "edge";
 
 type Env = {
@@ -28,7 +29,7 @@ favoritesRoute
     c.set("user", user);
     await next();
   })
-  .use("/:id[0-9]+", async (c, next) => {
+  .use("/:id{[0-9]+}", async (c, next) => {
     const id = Number(c.req.param("id"));
 
     const favorite = await db
@@ -40,16 +41,6 @@ favoritesRoute
     if (!favorite) return c.json({ message: "Not found" }, 404);
 
     await next();
-  })
-  .get("/", async (c) => {
-    const user = c.var.user;
-
-    const favorites = await db
-      .select()
-      .from(favoritesTable)
-      .where(eq(favoritesTable.userId, user.id));
-
-    return c.json({ data: favorites }, 200);
   })
   .post("/", zValidator("json", favoriteSchema), async (c) => {
     const user = c.var.user;
@@ -67,6 +58,16 @@ favoritesRoute
       .then((res) => res[0]);
 
     return c.json({ data: favorite }, 201);
+  })
+  .get("/", async (c) => {
+    const user = c.var.user;
+
+    const favorites = await db
+      .select()
+      .from(favoritesTable)
+      .where(eq(favoritesTable.userId, user.id));
+
+    return c.json({ data: favorites }, 200);
   })
   .get("/:id{[0-9]+}", async (c) => {
     const user = c.var.user;
@@ -88,15 +89,13 @@ favoritesRoute
     const user = c.var.user;
     const id = Number(c.req.param("id"));
 
-    const result = await db
+    await db
       .delete(favoritesTable)
       .where(
         and(eq(favoritesTable.userId, user.id), eq(favoritesTable.malId, id))
       )
       .returning()
       .then((res) => res[0]);
-
-    if (result) return c.notFound();
 
     return c.json(null, 204);
   });
