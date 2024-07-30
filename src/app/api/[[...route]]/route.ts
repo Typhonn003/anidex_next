@@ -20,7 +20,7 @@ type Env = {
 export const favoritesRoute = new Hono<Env>().basePath("/api");
 
 favoritesRoute
-  .use("*", async (c, next) => {
+  .use("/favorites/*", async (c, next) => {
     const section = getKindeServerSession();
     const user = await section.getUser();
 
@@ -29,7 +29,7 @@ favoritesRoute
     c.set("user", user);
     await next();
   })
-  .use("/:id{[0-9]+}", async (c, next) => {
+  .use("/favorites/:id{[0-9]+}", async (c, next) => {
     const id = Number(c.req.param("id"));
 
     const favorite = await db
@@ -42,7 +42,7 @@ favoritesRoute
 
     await next();
   })
-  .post("/", zValidator("json", favoriteSchema), async (c) => {
+  .post("/favorites", zValidator("json", favoriteSchema), async (c) => {
     const user = c.var.user;
     const anime = c.req.valid("json");
 
@@ -59,7 +59,7 @@ favoritesRoute
 
     return c.json({ data: favorite }, 201);
   })
-  .get("/", async (c) => {
+  .get("/favorites", async (c) => {
     const user = c.var.user;
 
     const favorites = await db
@@ -69,7 +69,7 @@ favoritesRoute
 
     return c.json({ data: favorites }, 200);
   })
-  .get("/:id{[0-9]+}", async (c) => {
+  .get("/favorites/:id{[0-9]+}", async (c) => {
     const user = c.var.user;
     const id = Number(c.req.param("id"));
 
@@ -85,7 +85,7 @@ favoritesRoute
 
     return c.json({ data: favorite }, 200);
   })
-  .delete("/:id{[0-9]+}", async (c) => {
+  .delete("/favorites/:id{[0-9]+}", async (c) => {
     const user = c.var.user;
     const id = Number(c.req.param("id"));
 
