@@ -1,5 +1,11 @@
+import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/server";
+
 const Home = () => {
-  return <><p>Hello!</p></>;
+  return (
+    <div>
+      <LoginLink>Login</LoginLink>
+    </div>
+  );
 };
 
 export default Home;
