@@ -120,7 +120,7 @@ export const MobileSidebar = ({
         )}
         {...props}
       >
-        <div className="z-20 flex w-full justify-between">
+        <div className="z-20 flex w-full items-center justify-between">
           <Logo />
           <IconMenu2
             className="text-neutral-800 dark:text-neutral-200"
