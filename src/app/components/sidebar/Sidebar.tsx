@@ -15,7 +15,9 @@ export const Sidebar = ({ user }: { user: KindeUser | null }) => {
 
   const filteredLinks = user
     ? sidebarLinks.filter((link) => link.label !== "Sign In")
-    : sidebarLinks.filter((link) => link.label !== "Logout");
+    : sidebarLinks.filter(
+        (link) => link.label !== "Logout" && link.label !== "Favorites",
+      );
 
   return (
     <SidebarComponent open={open} setOpen={setOpen} animate={true}>
