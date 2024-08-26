@@ -33,7 +33,7 @@ const RootLayout = async ({
         <header>
           <Sidebar user={user} />
         </header>
-        <main>{children}</main>
+        <main className="h-full w-full">{children}</main>
       </body>
     </html>
   );
