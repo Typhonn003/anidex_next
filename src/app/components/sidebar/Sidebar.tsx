@@ -11,7 +11,7 @@ import { sidebarLinks } from "@/app/data";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
 export const Sidebar = ({ user }: { user: KindeUser | null }) => {
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
 
   const filteredLinks = user
     ? sidebarLinks.filter((link) => link.label !== "Sign In")
