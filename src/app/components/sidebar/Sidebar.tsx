@@ -7,17 +7,15 @@ import {
   Logo,
 } from "@/app/components";
 import Image from "next/image";
-import { Links } from "@/app/data";
+import { sidebarLinks } from "@/app/data";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
-export const Sidebar = ({
-  user,
-  links,
-}: {
-  user: KindeUser | null;
-  links: Links[];
-}) => {
+export const Sidebar = ({ user }: { user: KindeUser | null }) => {
   const [open, setOpen] = useState<boolean>(false);
+
+  const filteredLinks = user
+    ? sidebarLinks.filter((link) => link.label !== "Sign In")
+    : sidebarLinks.filter((link) => link.label !== "Logout");
 
   return (
     <SidebarComponent open={open} setOpen={setOpen} animate={true}>
@@ -25,7 +23,7 @@ export const Sidebar = ({
         <div className="flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           <Logo />
           <div className="mt-8 flex flex-col gap-2">
-            {links.map((link, idx) => (
+            {filteredLinks.map((link, idx) => (
               <SidebarLink key={idx} link={link} />
             ))}
           </div>

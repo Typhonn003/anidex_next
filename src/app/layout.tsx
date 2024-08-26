@@ -1,7 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Sidebar } from "./components";
-import { sidebarLinks } from "./data";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { cn } from "@/app/lib/utils";
 import { Inter } from "next/font/google";
@@ -32,7 +31,7 @@ const RootLayout = async ({
         )}
       >
         <header>
-          <Sidebar links={sidebarLinks} user={user} />
+          <Sidebar user={user} />
         </header>
         <main>{children}</main>
       </body>
