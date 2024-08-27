@@ -1,16 +1,16 @@
 "use client";
 import { motion } from "framer-motion";
 import React from "react";
-import { AuroraBackground } from "./components/ui/aurora-background";
-import { PlaceholdersAndVanishInput } from "./components/ui/placeholders-and-vanish-input";
+import Link from "next/link";
 import {
+  AuroraBackground,
+  Cover,
   Modal,
   ModalBody,
   ModalContent,
   ModalTrigger,
-} from "./components/ui/animated-modal";
-import { Cover } from "./components/ui/cover";
-import Link from "next/link";
+  PlaceholdersAndVanishInput,
+} from "@/app/components";
 
 const Home = () => {
   const placeholders = [
