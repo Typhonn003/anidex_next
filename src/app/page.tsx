@@ -39,7 +39,7 @@ const Home = () => {
           duration: 0.8,
           ease: "easeInOut",
         }}
-        className="relative flex flex-col items-center justify-center gap-4 px-4"
+        className="relative flex flex-col items-center justify-center gap-4 px-4 text-gray-800"
       >
         <h1 className="text-center text-5xl font-bold md:text-7xl dark:text-white">
           Anidex
