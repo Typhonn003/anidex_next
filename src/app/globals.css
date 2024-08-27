@@ -6,4 +6,8 @@
   .icon-style {
     @apply h-5 w-5 flex-shrink-0 text-neutral-700 dark:text-neutral-200;
   }
+
+  .home-text-style {
+    @apply py-4 text-center text-lg font-extralight md:text-2xl dark:text-neutral-200;
+  }
 }

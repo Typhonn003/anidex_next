@@ -9,6 +9,8 @@ import {
   ModalContent,
   ModalTrigger,
 } from "./components/ui/animated-modal";
+import { Cover } from "./components/ui/cover";
+import Link from "next/link";
 
 const Home = () => {
   const placeholders = [
@@ -42,7 +44,7 @@ const Home = () => {
         <h1 className="text-center text-5xl font-bold md:text-7xl dark:text-white">
           Anidex
         </h1>
-        <h2 className="py-4 text-center text-lg font-extralight md:text-2xl dark:text-neutral-200">
+        <h2 className="home-text-style">
           Search for information about your favorite anime by name.
         </h2>
         <PlaceholdersAndVanishInput
@@ -51,9 +53,7 @@ const Home = () => {
           onSubmit={onSubmit}
         />
         <div className="flex items-center gap-4">
-          <h2 className="py-4 text-center text-lg font-extralight md:text-2xl dark:text-neutral-200">
-            Or by genre.
-          </h2>
+          <h2 className="home-text-style">Or by genre.</h2>
           <Modal>
             <ModalTrigger className="group/modal-btn flex justify-center bg-black text-white dark:bg-white dark:text-black">
               See the options
@@ -72,6 +72,12 @@ const Home = () => {
             </ModalBody>
           </Modal>
         </div>
+        <h2 className="home-text-style text-xl">
+          <Link href={"api/auth/register"} target="_self">
+            <Cover>Create a profile</Cover>
+          </Link>{" "}
+          to add anime to your favorites.
+        </h2>
       </motion.div>
     </AuroraBackground>
   );
