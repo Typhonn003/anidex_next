@@ -6,3 +6,4 @@ export * from "./ui/animated-modal";
 export * from "./ui/aurora-background";
 export * from "./ui/cover";
 export * from "./ui/placeholders-and-vanish-input";
+export * from "./search_result/SearchResult";

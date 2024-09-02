@@ -15,7 +15,7 @@ export type Links = {
 export const sidebarLinks = [
   {
     label: "Search",
-    href: "#",
+    href: "/search",
     icon: <IconSearch className="icon-style" />,
   },
   {
