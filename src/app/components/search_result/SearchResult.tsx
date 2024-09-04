@@ -3,10 +3,8 @@ import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/app/hooks";
-import { AnimeCard } from "../anime_card/AnimeCard";
 import { AnimeData } from "@/app/interfaces";
-import { api } from "@/app/services";
-
+import { AnimeCard3d } from "@/app/components";
 export const SearchResult = ({ animes }: { animes: AnimeData[] }) => {
   const [active, setActive] = useState<
     (typeof animes)[number] | boolean | null
@@ -150,7 +148,7 @@ export const SearchResult = ({ animes }: { animes: AnimeData[] }) => {
           </div>
         ) : null}
       </AnimatePresence>
-      <ul className="grid max-h-[calc(100%-80px)] min-h-[312px] grid-cols-[repeat(auto-fit,minmax(176px,1fr))] overflow-y-auto">
+      <ul className="grid max-h-[calc(100%-80px)] min-h-[312px] grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-2 overflow-y-auto px-4 pb-4">
         {animes
           .reduce<AnimeData[]>((acc, anime) => {
             if (!acc.some((item) => item.mal_id === anime.mal_id)) {
@@ -159,7 +157,7 @@ export const SearchResult = ({ animes }: { animes: AnimeData[] }) => {
             return acc;
           }, [])
           .map((anime) => (
-            <AnimeCard
+            <AnimeCard3d
               key={anime.mal_id}
               id={id}
               title={anime.title}

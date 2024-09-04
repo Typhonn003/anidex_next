@@ -7,3 +7,5 @@ export * from "./ui/aurora-background";
 export * from "./ui/cover";
 export * from "./ui/placeholders-and-vanish-input";
 export * from "./search_result/SearchResult";
+export * from "./card/AnimeCard3d";
+export * from "./card/LoadingCard3d";
