@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
   AuroraBackground,
   Cover,
+  LogoIcon,
   Modal,
   ModalBody,
   ModalContent,
@@ -34,9 +35,14 @@ const Home = () => {
         }}
         className="relative flex flex-col items-center justify-center gap-4 px-4"
       >
-        <h1 className="text-center text-5xl font-bold text-white md:text-7xl dark:text-gray-800">
-          Anidex
-        </h1>
+        <div className="flex gap-2">
+          <h1 className="text-center text-5xl font-bold text-neutral-100 md:text-7xl dark:text-gray-800">
+            Anidex
+          </h1>
+          <div className="h-1 w-1">
+            <LogoIcon />
+          </div>
+        </div>
         <h2 className="home-text-style">
           Search for information about your favorite anime by name.
         </h2>
@@ -48,7 +54,7 @@ const Home = () => {
         <div className="flex items-center gap-4">
           <h2 className="home-text-style">Or by genre.</h2>
           <Modal>
-            <ModalTrigger className="group/modal-btn flex justify-center bg-black text-white dark:bg-white dark:text-black">
+            <ModalTrigger className="group/modal-btn flex justify-center bg-black text-neutral-200 dark:bg-white dark:text-gray-800">
               See the options
             </ModalTrigger>
             <ModalBody>

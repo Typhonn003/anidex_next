@@ -4,7 +4,7 @@
 
 @layer components {
   .icon-style {
-    @apply h-5 w-5 flex-shrink-0 text-neutral-700 dark:text-neutral-200;
+    @apply h-5 w-5 flex-shrink-0 text-neutral-200;
   }
 
   .home-text-style {
