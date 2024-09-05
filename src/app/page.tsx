@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import Link from "next/link";
 import {
   AuroraBackground,
@@ -13,14 +13,23 @@ import {
   PlaceholdersAndVanishInput,
 } from "@/app/components";
 import { placeholders } from "@/app/data";
+import { useSearchStore } from "@/app/store";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+  const { pendingSearch, setPendingSearch, setCurrentSearch, setCurrentPage } =
+    useSearchStore();
+  const router = useRouter();
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPendingSearch(e.target.value);
   };
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submitted");
+    setCurrentPage(1);
+    setCurrentSearch(pendingSearch);
+    router.push("/search");
   };
 
   return (

@@ -1,30 +1,21 @@
 "use client";
 import { PlaceholdersAndVanishInput, SearchResult } from "@/app/components";
-import { hc } from "hono/client";
-import { type ApiRoutes } from "@/app/api/[[...route]]/route";
-import { useState } from "react";
-import { useFetch } from "@/app/hooks";
-import { AnimeData, Root } from "@/app/interfaces";
+import { ChangeEvent } from "react";
 import { placeholders } from "@/app/data";
-
-const client = hc<ApiRoutes>("/");
+import { useSearchStore } from "../store";
 
 const Search = () => {
-  const [animeName, setAnimeName] = useState<string>("");
-  const [search, setSearch] = useState<string>("");
+  const { pendingSearch, setPendingSearch, setCurrentSearch, setCurrentPage } =
+    useSearchStore();
 
-  const query = search
-    ? `anime?q=${search}&genres_exclude={9, 12, 49}&limit=24`
-    : null;
-
-  const { data, isLoading } = useFetch<Root>(query);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAnimeName(e.target.value);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPendingSearch(e.target.value);
   };
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSearch(animeName);
+    setCurrentPage(1);
+    setCurrentSearch(pendingSearch);
   };
 
   return (
@@ -36,8 +27,7 @@ const Search = () => {
           onSubmit={onSubmit}
         />
       </div>
-      {isLoading && <div>Loading...</div>}
-      {data?.data && <SearchResult animes={data.data} />}
+      <SearchResult type="name" />
     </div>
   );
 };
