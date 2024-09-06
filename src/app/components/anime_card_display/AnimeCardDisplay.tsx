@@ -148,7 +148,7 @@ export const AnimeCardDisplay = ({ animes }: { animes: AnimeData[] }) => {
           </div>
         ) : null}
       </AnimatePresence>
-      <ul className="grid max-h-[calc(100%-80px)] min-h-[312px] grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-2 overflow-y-auto px-4 pb-4">
+      <ul className="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-2">
         {animes
           .reduce<AnimeData[]>((acc, anime) => {
             if (!acc.some((item) => item.mal_id === anime.mal_id)) {
