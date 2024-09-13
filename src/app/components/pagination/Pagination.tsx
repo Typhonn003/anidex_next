@@ -1,6 +1,6 @@
 import { Button } from "@/app/components";
 import { MutableRefObject } from "react";
-import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+import { IconChevronsLeft, IconChevronsRight } from "@tabler/icons-react";
 import { cn } from "@/app/lib/utils";
 
 export const Pagination = ({
@@ -40,7 +40,7 @@ export const Pagination = ({
         disabled={currentPage === 1}
       >
         <span>
-          <IconChevronLeft className="text-neutral-200" />
+          <IconChevronsLeft className="text-neutral-200" />
         </span>
       </Button>,
     );
@@ -105,7 +105,7 @@ export const Pagination = ({
         disabled={currentPage === lastPage}
       >
         <span>
-          <IconChevronRight className="text-neutral-200" />
+          <IconChevronsRight className="text-neutral-200" />
         </span>
       </Button>,
     );
