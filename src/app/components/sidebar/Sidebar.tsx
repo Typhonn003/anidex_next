@@ -20,7 +20,7 @@ export const Sidebar = ({ user }: { user: KindeUser | null }) => {
       );
 
   return (
-    <SidebarComponent open={open} setOpen={setOpen} animate={true}>
+    <SidebarComponent open={open} setOpen={setOpen} animate={false}>
       <SidebarBody className="justify-between gap-10">
         <div className="flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           <Logo />

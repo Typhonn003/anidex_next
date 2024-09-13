@@ -11,6 +11,7 @@ import {
   ModalContent,
   ModalTrigger,
   PlaceholdersAndVanishInput,
+  TagsList,
 } from "@/app/components";
 import { placeholders } from "@/app/data";
 import { useSearchStore } from "@/app/store";
@@ -68,13 +69,7 @@ const Home = () => {
             </ModalTrigger>
             <ModalBody>
               <ModalContent>
-                <h4 className="mb-8 text-center text-lg font-bold text-neutral-600 md:text-2xl dark:text-neutral-100">
-                  Future{" "}
-                  <span className="rounded-md border border-gray-200 bg-gray-100 px-1 py-0.5 dark:border-neutral-700 dark:bg-neutral-800">
-                    content
-                  </span>{" "}
-                  here.
-                </h4>
+                <TagsList />
                 <div className="flex items-center justify-center"></div>
               </ModalContent>
             </ModalBody>

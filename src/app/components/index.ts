@@ -12,3 +12,4 @@ export * from "./loading/CardLoading";
 export * from "./anime_card_display/AnimeCardDisplay";
 export * from "./search_result/SearchResult";
 export * from "./pagination/Pagination";
+export * from "./tags_list/TagsList";

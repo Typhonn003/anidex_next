@@ -20,7 +20,7 @@ export const sidebarLinks = [
   },
   {
     label: "Genres",
-    href: "#",
+    href: "/genres",
     icon: <IconCategory className="icon-style" />,
   },
   {

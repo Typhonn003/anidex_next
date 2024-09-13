@@ -4,7 +4,6 @@ import { useGenreStore, useSearchStore } from "@/app/store";
 import { Root } from "@/app/interfaces";
 import { useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
-import { CardLoading } from "../loading/CardLoading";
 
 const DynamicCardLoading = dynamic(() =>
   import("../loading/CardLoading").then((module) => module.CardLoading),
@@ -42,9 +41,13 @@ export const SearchResult = ({ type }: { type: "name" | "genre" }) => {
     : setGenreCurrentPage;
   const setLastPage = isNameSearch ? setAnimeLastPage : setGenreLastPage;
 
-  const query = currentSearch
-    ? `anime?q=${currentSearch}&genres_exclude={9, 12, 49}&limit=24&page=${currentPage}`
-    : null;
+  const query = isNameSearch
+    ? currentSearch
+      ? `anime?q=${currentSearch}&genres_exclude={9, 12, 49}&limit=24&page=${currentPage}`
+      : null
+    : genreId
+      ? `anime?genres=${genreId}&limit=24&page=${currentPage}`
+      : null;
 
   const { data, isLoading } = useFetch<Root>(query);
 
@@ -80,7 +83,7 @@ export const SearchResult = ({ type }: { type: "name" | "genre" }) => {
       data?.data && (
         <div
           ref={cardDisplay}
-          className="max-h-[calc(100%-80px)] min-h-[312px] w-full overflow-y-auto px-4 md:max-w-7xl md:m-auto"
+          className="max-h-[calc(100%-80px)] min-h-[312px] w-full overflow-y-auto px-4 md:m-auto md:max-w-7xl"
         >
           <DynamicAnimeCardDisplay animes={data.data} />
           {lastPage > 1 && isLoading === false && (

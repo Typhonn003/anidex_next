@@ -9,6 +9,7 @@ interface useGenreStoreProps {
   setGenreName: (value: string) => void;
   setCurrentPage: (value: number) => void;
   setLastPage: (value: number) => void;
+  handleSelectedGenre: (name: string, id: number) => void;
 }
 
 export const useGenreStore = create<useGenreStoreProps>((set) => ({
@@ -20,4 +21,9 @@ export const useGenreStore = create<useGenreStoreProps>((set) => ({
   setGenreName: (value) => set({ genreName: value }),
   setCurrentPage: (value) => set({ currentPage: value }),
   setLastPage: (value) => set({ lastPage: value }),
+  handleSelectedGenre: (name: string, id: number) => {
+    set({ currentPage: 1 });
+    set({ genreName: name });
+    set({ genreId: id });
+  },
 }));

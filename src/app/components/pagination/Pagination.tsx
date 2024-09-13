@@ -16,16 +16,17 @@ export const Pagination = ({
   setPage: (value: number) => void;
   elementRef: MutableRefObject<HTMLDivElement | null>;
 }) => {
-  const handleScroll = () => {
+  //Verificar por que não ta fazendo o scroll suave
+  /* const handleScroll = () => {
     setTimeout(() => {
       if (elementRef.current)
         elementRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }, 100);
-  };
+  }; */
 
   const handlePage = (value: number) => {
     setPage(value);
-    handleScroll();
+    //handleScroll();
   };
 
   const pageButtons = () => {
