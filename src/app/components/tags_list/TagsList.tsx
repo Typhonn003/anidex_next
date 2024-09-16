@@ -25,15 +25,18 @@ export const TagsList = () => {
 
   return (
     data && (
-      <div className="flex h-96 flex-wrap gap-2 overflow-y-auto">
-        {data.data.map((tag) => (
-          <Button
-            onClick={() => handleSelectedGenre(tag.name, tag.mal_id)}
-            key={tag.mal_id}
-          >
-            {tag.name}
-          </Button>
-        ))}
+      <div className="grid h-96 gap-2 overflow-y-auto md:grid-cols-2">
+        {data.data
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((tag) => (
+            <Button
+              onClick={() => handleSelectedGenre(tag.name, tag.mal_id)}
+              key={tag.mal_id}
+              className="w-full"
+            >
+              {tag.name}
+            </Button>
+          ))}
       </div>
     )
   );
