@@ -14,6 +14,11 @@ interface Tags {
   count: number;
 }
 
+const filteredSortedTags = (data: Root) =>
+  data.data
+    .filter((tag) => ![9, 12, 49].includes(tag.mal_id))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
 export const TagsList = () => {
   const { handleSelectedGenre } = useGenreStore();
 
@@ -25,19 +30,18 @@ export const TagsList = () => {
 
   return (
     data && (
-      <div className="grid h-96 gap-2 overflow-y-auto md:grid-cols-2">
-        {data.data
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .map((tag) => (
+      <ul className="grid h-96 w-full gap-2 overflow-y-auto md:grid-cols-2">
+        {filteredSortedTags(data).map((tag) => (
+          <li key={tag.mal_id}>
             <Button
               onClick={() => handleSelectedGenre(tag.name, tag.mal_id)}
-              key={tag.mal_id}
               className="w-full"
             >
               {tag.name}
             </Button>
-          ))}
-      </div>
+          </li>
+        ))}
+      </ul>
     )
   );
 };
