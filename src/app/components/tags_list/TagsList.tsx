@@ -1,13 +1,14 @@
 "use client";
 import { useFetch } from "@/app/hooks";
 import { Button } from "../button/Button";
-import { useGenreStore } from "@/app/store";
+import { useGenreStore, useModalStore } from "@/app/store";
+import { useRouter } from "next/router";
 
 interface Root {
-  data: Tags[];
+  data: Tag[];
 }
 
-interface Tags {
+interface Tag {
   mal_id: number;
   name: string;
   url: string;
@@ -21,6 +22,12 @@ const filteredSortedTags = (data: Root) =>
 
 export const TagsList = () => {
   const { handleSelectedGenre } = useGenreStore();
+  const { genreModal, setGenreModal } = useModalStore();
+
+  const handleGenre = ({ name, mal_id }: Tag) => {
+    handleSelectedGenre(name, mal_id);
+    setGenreModal(!genreModal);
+  };
 
   const query = "genres/anime";
 
@@ -33,10 +40,7 @@ export const TagsList = () => {
       <ul className="grid h-96 w-full gap-2 overflow-y-auto md:grid-cols-2">
         {filteredSortedTags(data).map((tag) => (
           <li key={tag.mal_id}>
-            <Button
-              onClick={() => handleSelectedGenre(tag.name, tag.mal_id)}
-              className="w-full"
-            >
+            <Button onClick={() => handleGenre(tag)} className="w-full">
               {tag.name}
             </Button>
           </li>

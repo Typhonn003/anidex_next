@@ -7,22 +7,22 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useState,
 } from "react";
 import { Button } from "../button/Button";
+import { useModalStore } from "@/app/store";
 
 interface ModalContextType {
-  open: boolean;
-  setOpen: (open: boolean) => void;
+  genreModal: boolean;
+  setGenreModal: (genreModal: boolean) => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
-  const [open, setOpen] = useState(false);
+  const { genreModal, setGenreModal } = useModalStore();
 
   return (
-    <ModalContext.Provider value={{ open, setOpen }}>
+    <ModalContext.Provider value={{ genreModal, setGenreModal }}>
       {children}
     </ModalContext.Provider>
   );
@@ -47,9 +47,9 @@ export const ModalTrigger = ({
   children: ReactNode;
   className?: string;
 }) => {
-  const { setOpen } = useModal();
+  const { setGenreModal } = useModal();
   return (
-    <Button className={className} onClick={() => setOpen(true)}>
+    <Button className={className} onClick={() => setGenreModal(true)}>
       {children}
     </Button>
   );
@@ -62,23 +62,23 @@ export const ModalBody = ({
   children: ReactNode;
   className?: string;
 }) => {
-  const { open } = useModal();
+  const { genreModal } = useModal();
 
   useEffect(() => {
-    if (open) {
+    if (genreModal) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
-  }, [open]);
+  }, [genreModal]);
 
   const modalRef = useRef(null);
-  const { setOpen } = useModal();
-  useOutsideClick(modalRef, () => setOpen(false));
+  const { setGenreModal } = useModal();
+  useOutsideClick(modalRef, () => setGenreModal(false));
 
   return (
     <AnimatePresence>
-      {open && (
+      {genreModal && (
         <motion.div
           initial={{
             opacity: 0,
@@ -186,10 +186,10 @@ const Overlay = ({ className }: { className?: string }) => {
 };
 
 const CloseIcon = () => {
-  const { setOpen } = useModal();
+  const { setGenreModal } = useModal();
   return (
     <button
-      onClick={() => setOpen(false)}
+      onClick={() => setGenreModal(false)}
       className="group absolute right-4 top-4"
     >
       <svg

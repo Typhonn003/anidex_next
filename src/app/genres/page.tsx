@@ -16,7 +16,7 @@ const Genres = () => {
         </ModalTrigger>
         <ModalBody>
           <ModalContent>
-            <TagsList />
+            <TagsList changePage={false} />
             <div className="flex items-center justify-center"></div>
           </ModalContent>
         </ModalBody>
