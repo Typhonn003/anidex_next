@@ -5,12 +5,8 @@ import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import { Logo } from "@/app/components/logo/Logo";
-
-interface Links {
-  label: string;
-  href: string;
-  icon: React.JSX.Element | React.ReactNode;
-}
+import { Links, Options } from "@/app/data";
+import { useContentStore } from "@/app/store";
 
 interface SidebarContextProps {
   open: boolean;
@@ -171,22 +167,70 @@ export const SidebarLink = ({
     <Link
       href={link.href}
       className={cn(
-        "group/sidebar flex items-center justify-start gap-2 py-2",
+        "group/sidebar flex items-center justify-start gap-2 rounded-md px-1 py-2 hover:bg-blue-800/40",
         className,
       )}
+      target="_self"
       {...props}
     >
       {link.icon}
-
       <motion.span
         animate={{
           display: animate ? (open ? "inline-block" : "none") : "inline-block",
           opacity: animate ? (open ? 1 : 0) : 1,
         }}
-        className="!m-0 inline-block whitespace-pre !p-0 text-sm text-neutral-200 transition duration-150 group-hover/sidebar:translate-x-1"
+        className="!m-0 inline-block whitespace-pre !p-0 text-sm text-neutral-200 transition duration-150 group-hover/sidebar:translate-x-2"
       >
         {link.label}
       </motion.span>
     </Link>
+  );
+};
+
+export const SidebarOption = ({
+  option,
+  name,
+  className,
+}: {
+  option: Options;
+  name: string;
+  className?: string;
+}) => {
+  const { contentType, setContentType } = useContentStore();
+  const { open, animate } = useSidebar();
+
+  return (
+    <label
+      key={option.value}
+      className={cn(
+        "group/sidebar relative flex cursor-pointer items-center gap-2 overflow-hidden rounded-lg px-1 py-2 transition-colors",
+        {
+          "bg-blue-800 px-2": contentType === option.value,
+          "hover:bg-blue-800/40": contentType !== option.value,
+          "px-0": animate && !open && option.value === "profile",
+          "px-1": !(animate && !open && option.value === "profile"),
+        },
+        className,
+      )}
+    >
+      <input
+        type="radio"
+        name={name}
+        value={option.value}
+        checked={contentType === option.value}
+        onChange={(e) => setContentType(e.target.value)}
+        className="sr-only"
+      />
+      {option.icon}
+      <motion.span
+        animate={{
+          display: animate ? (open ? "inline-block" : "none") : "inline-block",
+          opacity: animate ? (open ? 1 : 0) : 1,
+        }}
+        className="!m-0 inline-block whitespace-pre !p-0 text-sm text-neutral-200 transition duration-150 group-hover/sidebar:translate-x-2"
+      >
+        {option.label}
+      </motion.span>
+    </label>
   );
 };

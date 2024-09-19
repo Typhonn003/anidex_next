@@ -5,19 +5,22 @@ import {
   SidebarBody,
   SidebarLink,
   Logo,
+  SidebarOption,
 } from "@/app/components";
 import Image from "next/image";
-import { sidebarLinks } from "@/app/data";
+import { sidebarLinks, sidebarOptions } from "@/app/data";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
 export const Sidebar = ({ user }: { user: KindeUser | null }) => {
   const [open, setOpen] = useState<boolean>(false);
 
-  const filteredLinks = user
-    ? sidebarLinks.filter((link) => link.label !== "Sign In")
-    : sidebarLinks.filter(
-        (link) => link.label !== "Logout" && link.label !== "Favorites",
-      );
+  const filteredOptions = user
+    ? sidebarOptions
+    : sidebarOptions.filter((option) => option.value !== "favorites");
+
+  const filteredLinks = sidebarLinks.filter((link) =>
+    user ? !link.label.includes("Sign") : link.label !== "Logout",
+  );
 
   return (
     <SidebarComponent open={open} setOpen={setOpen} animate={false}>
@@ -25,17 +28,25 @@ export const Sidebar = ({ user }: { user: KindeUser | null }) => {
         <div className="flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           <Logo />
           <div className="mt-8 flex flex-col gap-2">
-            {filteredLinks.map((link, idx) => (
-              <SidebarLink key={idx} link={link} />
+            {filteredOptions.map((option) => (
+              <SidebarOption
+                key={option.value}
+                option={option}
+                name={"menu-option"}
+              />
+            ))}
+            <div className="w-full border border-blue-800" />
+            {filteredLinks.map((link) => (
+              <SidebarLink key={link.href} link={link} />
             ))}
           </div>
         </div>
         {user && (
           <div>
-            <SidebarLink
-              link={{
+            <SidebarOption
+              option={{
                 label: user.given_name!,
-                href: "#",
+                value: "profile",
                 icon: (
                   <Image
                     src={user.picture!}
@@ -46,6 +57,7 @@ export const Sidebar = ({ user }: { user: KindeUser | null }) => {
                   />
                 ),
               }}
+              name="profile-option"
             />
           </div>
         )}

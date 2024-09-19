@@ -1,2 +1,2 @@
-export * from "./sidebarLinks";
+export * from "./sidebar";
 export * from "./placeholders";

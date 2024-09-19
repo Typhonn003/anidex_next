@@ -76,7 +76,7 @@ const Home = () => {
           </Modal>
         </div>
         <h2 className="home-text-style text-xl">
-          <Link href={"api/auth/register"} target="_self">
+          <Link href={"/api/auth/register"} target="_self">
             <Cover>Create a profile</Cover>
           </Link>{" "}
           to add anime to your favorites.
