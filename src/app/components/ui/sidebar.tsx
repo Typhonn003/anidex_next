@@ -7,6 +7,7 @@ import { IconMenu2, IconX } from "@tabler/icons-react";
 import { Logo } from "@/app/components/logo/Logo";
 import { Links, Options } from "@/app/data";
 import { useContentStore } from "@/app/store";
+import { useRouter } from "next/navigation";
 
 interface SidebarContextProps {
   open: boolean;
@@ -198,6 +199,12 @@ export const SidebarOption = ({
 }) => {
   const { contentType, setContentType } = useContentStore();
   const { open, animate } = useSidebar();
+  const router = useRouter();
+
+  const handleOption = (value: string) => {
+    setContentType(value);
+    router.push(option.value);
+  };
 
   return (
     <label
@@ -218,7 +225,7 @@ export const SidebarOption = ({
         name={name}
         value={option.value}
         checked={contentType === option.value}
-        onChange={(e) => setContentType(e.target.value)}
+        onChange={() => handleOption(option.value)}
         className="sr-only"
       />
       {option.icon}
