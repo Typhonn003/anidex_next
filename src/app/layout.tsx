@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { AuroraBackground, Sidebar } from "./components";
+import { Sidebar } from "./components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { cn } from "@/app/lib/utils";
 import { Inter } from "next/font/google";
@@ -33,9 +33,8 @@ const RootLayout = async ({
         <header>
           <Sidebar user={user} />
         </header>
-
         <main className="h-[calc(100%-2.5rem)] w-full md:h-full">
-          <AuroraBackground>{children}</AuroraBackground>
+          {children}
         </main>
       </body>
     </html>
